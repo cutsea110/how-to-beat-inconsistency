@@ -7,7 +7,7 @@ open import Function using (const)
 open import Relation.Binary.PropositionalEquality using (_≡_)
 open import Relation.Nullary using (yes; no)
 
-strange? : ∀ x y z → (x ≡ 3 → y ≡ 5) ⊎ (y ≡ 5 → z ≡ 8)
-strange? x y z with y ≟ 5
-strange? x y z | yes p = inj₁ (const p)
-strange? x y z | no ¬p = inj₂ (λ y≡5 → ⊥-elim (¬p y≡5))
+strange? : ∀ {x y z} → (x ≡ 3 → y ≡ 5) ⊎ (y ≡ 5 → z ≡ 8)
+strange? {y = y} with y ≟ 5
+strange? | yes y≡5 = inj₁ (const y≡5)
+strange? | no  y≢5 = inj₂ (λ y≡5 → ⊥-elim (y≢5 y≡5))
